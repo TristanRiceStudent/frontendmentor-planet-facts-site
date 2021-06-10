@@ -38,7 +38,20 @@ import Planet from "@/components/Planet.vue"
 import hamburgerIcon from "@/assets/icon-hamburger.svg";
 import data from "@/data.json";
 
-let dataKeysAndValues = data.map(a => [a.name, a]);
+function importImage(imageName) {
+    let imageCtx = require.context("../assets", false);
+    //remove ./assets from image url
+    let relative_path = imageName.replace("/assets", "");
+    let image = imageCtx(relative_path);
+    return image;
+}
+
+let dataKeysAndValues = data.map((a) => {
+    a.images.planet = importImage(a.images.planet);
+    a.images.internal = importImage(a.images.internal);
+    a.images.geology = importImage(a.images.geology);
+    return [a.name, a];
+});
 let dataAsHashMap = Object.fromEntries(dataKeysAndValues);
 
 export default {

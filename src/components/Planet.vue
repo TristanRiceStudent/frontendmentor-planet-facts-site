@@ -4,20 +4,19 @@
         <img 
             v-show="chosenLabel == 'Overview'" 
             class="planet-image" 
-            :src="images_.planet">
+            :src="planetInfo.images.planet">
         <img
             v-show="chosenLabel == 'Internal Structure'"
             class="planet-image"
-            :src="images_.internal">
+            :src="planetInfo.images.internal">
         <div 
-            v-show="chosenLabel == 'Surface Geology'"
-        >
+            v-show="chosenLabel == 'Surface Geology'">
             <img 
-                :src="images_.planet" 
+                :src="planetInfo.images.planet" 
                 class="planet-image"> 
             <img
                 class="planet-image overlay-image"
-                :src="images_.geology">
+                :src="planetInfo.images.geology">
         </div>
     </div>
     <div class="planet-info" :style="`--planet-color: ${color}`">
@@ -73,21 +72,7 @@ export default {
             let information = this.formattedData[this.planetName];
             return information;
         },
-
-        images_() {
-            let imageKeys = ["planet", "internal", "geology"];
-            let qq = imageKeys.map((imageKey) => {
-                let imageCtx = require.context("../assets", false);
-                //remove ./assets from image url
-                let imageUrl = this.formattedData[this.planetName].images[imageKey];
-                let relative_path = imageUrl.replace("/assets", "");
-                let image = imageCtx(relative_path);
-                return [imageKey, image];
-            });
-            let images_ = Object.fromEntries(qq);
-            return images_
-        },
-
+        
         currentPlanetInfo() {
             let choiceToImageKey = {
                 "Overview": ["overview", "planet"], 
@@ -96,9 +81,7 @@ export default {
             }
             let [contentKey, imageKey] = choiceToImageKey[this.chosenLabel];
             return {
-                "content": this.planetInfo[contentKey],
-                "image": this.images_[imageKey]
-                //"image": this.planetInfo.images[imageKey]
+                "content": this.planetInfo[contentKey]                //"image": this.planetInfo.images[imageKey]
             }
         },
 
@@ -114,11 +97,6 @@ export default {
             return Array.from(factNames, ([factKey, factName]) =>  
                 [factName, this.planetInfo[factKey]]
             );
-        }
-    },
-    methods: {
-        handleLabelClicked(event)  {
-            console.log(event.target.getAttribute("for"));
         }
     }
 }
