@@ -1,0 +1,555 @@
+/*
+Table of contents
+
+1. Global styles
+    1.1. html / body styles
+    1.2. font classes
+
+2. navbar styles
+    2.1. navbar container classes
+    2.2. navbar link keyframes animation
+    2.3. navbar link styles
+    2.4. navbar title
+
+3. Main planet styles
+*/
+
+/*
+1. Global styles
+*/
+@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@500&family=Spartan:wght@400;700&display=swap');
+
+:root {
+    --gray: #838391;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.not-hidden {
+    display: flex !important;
+}
+
+/*
+1.1. html / body styles
+*/
+html {
+    background: #070724;
+}
+
+#container {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr;
+    background: url("../assets/background-stars.svg");
+}
+
+/*
+1.2. font classes
+*/
+.antonio-medium {
+    font-family: "Antonio", sans-serif;
+    font-weight: 500;
+}
+
+.spartan-bold {
+    font-family: "Spartan", sans-serif;
+    font-weight: 700;
+}
+
+.spartan-normal {
+    font-family: "Spartan", sans-serif;
+    font-weight: 400;
+}
+
+/*
+2. Navbar styles
+*/
+
+/*
+2.1. nabvar container classes
+*/
+.nav {
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: solid 1px #38384F;
+}
+
+.nav__planets {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.mobile-nav-checkbox {
+    display: none;
+}
+
+/*
+2.2. Navbar link keyframes animation
+*/
+@keyframes inside-out-nav-link-hover {
+    from {
+        left: 50%;
+        width: 0%;
+    }
+    to {
+        left: 0%;
+        width: 100%;
+    }
+}
+
+/*
+2.3. navbar link styles
+*/
+.nav__planet-link {
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 12px;
+    color: var(--gray);
+    position: relative;
+    letter-spacing: 1px;
+}
+
+.nav__planet-link::after {
+    content: "";
+    position: absolute;
+    top: -32px;
+    width: 100%;
+    left: 0px;
+    height: 5px;
+}
+
+.nav__planet-link:hover,
+.nav__planet-link.router-link-exact-active,
+.nav__planet-link:focus {
+    outline: none;
+    color: white !important;
+}
+
+.nav__planet-link:hover::after,
+.nav__planet-link.router-link-exact-active::after,
+.nav__planet-link:focus::after {
+    content: "";
+    animation: inside-out-nav-link-hover .3s;
+    /* Hov color will be defined in the style attribute of the element*/
+    background: var(--hov-color);
+}
+
+/*
+2.4. navbar title
+*/
+.nav__title {
+    color: white;
+    font-size: 28px;
+}
+
+/*
+3. Main planet styles
+*/
+
+.planet-container {
+    display: grid;
+    place-items: center;
+}
+
+.main {
+    display: grid;
+    margin-top: 150px;
+    width: min(95%, 1110px);
+    grid-template-rows: 1fr .5fr;
+    grid-template-columns: 1fr .46fr;
+    grid-template-areas: 
+        "one two"
+        "three three";
+}
+
+.planet-image-container {
+    position: relative;
+}
+
+.planet-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.overlay-image {
+    width: 22%;
+    height: 39%;
+    top: 85%;
+}
+
+.planet-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px 0;
+}
+
+.planet-info__title {
+    font-size: 80px;
+    text-transform: uppercase;
+}
+
+.planet-info__fact {
+    font-size: 14px;
+    line-height: 25px;
+}
+
+.planet-info * {
+    color: white;
+}
+
+.planet-radios-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px 0;
+    margin-top: auto;
+}
+
+.planet__button-label {
+    width: 100%;
+    padding: 16px 0px 16px 23%;
+    text-transform: uppercase;
+    letter-spacing: 2.6px;
+    background: transparent;
+    border: 1px solid var(--gray);
+    font-size: 12px;
+    color: white;
+    counter-increment: count;
+    position: relative;
+}
+
+.planet__button-label::before {
+    position: absolute;
+    left: 30px;
+    content: counter(count, decimal-leading-zero);
+    color: var(--gray);
+}
+
+.planet__button-label:focus {
+    outline: none;
+}
+
+.planet__button-label:hover {
+    cursor: pointer;
+}
+
+.planet__button-label:hover,
+.planet__button-label:focus,
+.planet__radio:checked + .planet__button-label {
+    background: #38384F;
+    background-clip: padding-box;
+    border: 1px solid transparent;
+}
+
+.planet__radio:checked + .planet__button-label {
+    background: var(--planet-color);
+}
+
+.planet-facts {
+    grid-area: three;
+    display: flex;
+    align-items: center;
+    gap: min(2vw, 30px);
+}
+
+.planet-facts__fact {
+    width: 100%;
+    color: white;
+    padding: min(2vw, 30px);
+    border: 1px solid var(--gray);
+}
+
+.fact__name {
+    font-size: 13px;
+    color: var(--gray);
+}
+
+.fact__value {
+    font-size: 40px;
+    letter-spacing: -1.5px;
+}
+
+.source-image {
+    width: 12px;
+    height: 12px;
+}
+
+.source-link {
+    color: var(--gray);
+}
+
+@media only screen and (max-width: 1040px) {
+    .nav {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .nav__planet-link::after {
+        top: 28px;
+    }
+
+    .planet-image {
+        transform: translate(-50%, -50%) scale(0.7);
+    }
+
+    .overlay-image {
+        height: auto;
+        top: 80%;
+    }
+
+    .planet-info {
+        display: grid;
+        grid-template-rows: auto auto auto;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "one four"
+            "two four"
+            "three four";
+        gap: 25px min(7vw, 60px);
+    }
+
+    .planet-info__title {
+        grid-area: one;
+        font-size: 48px;
+    }
+
+    .planet-info__fact {
+        grid-area: two;
+        font-size: 11px;
+        line-height: 22px;
+    }
+
+    .planet-info__source {
+        grid-area: three;
+    }
+
+    .planet-radios-container {
+        grid-area: four;
+    }
+
+    .fact__name {
+        font-size: 10px;
+    }
+
+    .fact__value {
+        font-size: 20px;
+    }
+
+    .main {
+        height: 100%;
+        grid-template-rows: 1.5fr 0.5fr 0.5fr;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "one"
+            "two"
+            "three";
+        gap: 30px;
+        width: 90%;
+        padding-bottom: 50px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .planet-radios-container {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+        gap: 30px 0px;
+        flex-wrap: wrap;
+        flex-direction: row;
+        padding: 20px 25px;
+        border: 1px solid #38384F;
+        justify-content: space-around;
+    }
+
+    .planet__radio:checked + .planet__button-label {
+        background: initial;
+    }
+
+    .planet__button-label::after {
+        position: absolute;
+        content: "";
+        width: 100%;
+        left: 0px;
+        height: 5px;
+        top: 25px;
+    }
+
+    .planet__radio:checked + .planet__button-label::after {
+        animation: inside-out-nav-link-hover .3s;
+        background: var(--planet-color);
+        content: "";
+    }
+    
+    .planet__button-label::before {
+        display: none;
+    }
+
+    .planet__button-label {
+        border: none;
+        padding: initial;
+        text-align: center;
+        font-size: 9px;
+        width: auto;
+    }
+
+    /* Select every second item starting at the 4th*/
+
+    .planet__button-label:nth-child(2n + 4) {
+        font-size: 0px;
+    }
+    
+    .planet__button-label:nth-child(2n + 4)::before {
+        display: block;
+        color: white;
+        font-size: 12px;
+        text-align: center;
+        position: initial;
+        left: 0px;
+        font-size: 9px;
+    }
+
+    .planet__button-label:nth-child(4)::before {
+        content: "Structure";
+    }
+
+    .planet__button-label:nth-child(6)::before {
+        content: "Surface"
+    }
+
+    #container {
+        display: block;
+    }
+
+    .main {
+        width: 100%;
+    }
+
+    .nav {
+        flex-direction: row;
+    }
+
+    .nav__planets {
+        display: none;
+        position: absolute;
+        top: 77px;
+        width: 100%;
+        flex-direction: column;
+        z-index: 5;
+        background: #070724;
+        padding: 25px 25px;
+        left: 0px;
+    }
+
+    .nav__planet-link {
+        padding: 20px 20px 20px 45px;
+        color: white;
+        border-bottom: 1px solid #38384F;
+    }
+
+    .nav__planet-link::before {
+        position: absolute;
+        left: 0px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--hov-color);
+        content: "";
+    }
+
+    .nav__planet-link:hover::after, 
+    .nav__planet-link.router-link-exact-active::after, 
+    .nav__planet-link:focus::after,
+    .nav__planet-link::after {
+        animation: none;
+    }
+
+    .nav__planet-link::after {
+        inset: 50% 0px auto auto;
+        background: url("../assets/icon-chevron.svg") no-repeat !important;
+        width: 6px;
+        height: 8px;
+        transform: translateY(-50%);
+    }
+
+    .mobile-nav-checkbox {
+        display: block;
+    }
+
+    .mobile-nav-checkbox__icon {
+        transition-duration: .4s;
+        transition-property: transform;
+    }
+
+    .mobile-nav-checkbox__icon.selected {
+        transform: rotate(180deg);
+    }
+
+    .planet-image-container {
+        margin-top: 55px;
+    }
+    
+    .planet-info {
+        display: flex;
+        text-align: center;
+    }
+
+    .planet-info > *:not(.planet-radios-container) {
+        padding: 0 25px;
+    }
+
+    .planet-facts {
+        flex-direction: column;
+        padding: 25px;
+    }
+
+    .planet-facts__fact {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 25px;
+    }
+
+    .fact__name {
+        font-size: 10px;
+    }
+
+    .fact__value {
+        font-size: 20px;
+    }
+
+    .main {
+        margin-top: 0;
+        position: relative;
+    }
+
+    .planet-image {
+        transform: scale(0.43);
+        width: auto;
+        height: auto;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.38);
+    }
+
+    .overlay-image {
+        width: 30%;
+        top: 70%;
+    }
+}
